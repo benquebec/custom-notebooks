@@ -1,21 +1,29 @@
 SHELL      := /bin/bash
 
-SCRIPT     := notebook.py
-BACKGROUND := notebook.eps
-NOTEBOOK   := notebook.pdf
-CMD 	   := python $(SCRIPT) && for i in {1..2}; do xelatex notebook.tex; done
-ACC        := .log .aux .tex
-
+NAME		:= notebook
+MD_DIR  	:= md_dir
+IMG_DIR		:= ../img_dir
+VOL			:= 1
+PAGES	    := 10
+SCRIPT      := $(NAME).py
+BACKGROUND  := $(NAME).eps
+NOTEBOOK    := $(NAME).pdf
+TEX 		:= $(NAME).tex
+PY_CMD 	    := python $(SCRIPT) $(MD_DIR) $(IMG_DIR) $(VOL) $(PAGES)
+TEX_CMD 	:= for i in {1..2}; do xelatex $(TEX); done
+CMD 		:= $(PY_CMD) && $(TEX_CMD)
+ACC         := $(NAME).log $(NAME).aux $(NAME).tex *.png
 
 .PHONY: all clean distclean
 
-all: $(NOTEBOOK)
+all: $(NOTEBOOK) clean
 
 $(NOTEBOOK): $(SCRIPT)
 	@echo Building notebook...
+	mkdir -p $(MD_DIR) $(IMG_DIR)
 	$(CMD)
 
 clean:
-	@- $(RM) $(NOTEBOOK) $(ACC)
+	@- $(RM) $(ACC)
 
 distclean: clean
