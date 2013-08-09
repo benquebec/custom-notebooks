@@ -9,7 +9,9 @@ import os
 import sys
 import qrcode
 import datetime
+import locale
 
+locale.setlocale(locale.LC_ALL,'')
 
 def ref_file(page_stamp, img_dir):
     """ Generate associated markdown files for the notebook.
