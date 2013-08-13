@@ -17,7 +17,7 @@ def ref_file(page_stamp, img_dir):
     """ Generate associated markdown files for the notebook.
     """
     date = datetime.datetime.today().strftime('%Y-%m-%d-').rstrip('-')
-    img = ''.join((page_stamp, '.png'))
+    img = ''.join(('qr_', page_stamp, '.png'))
     img_fn = os.path.join(img_dir, img)
     fill = ('---', 'title: "{0}"'.format(page_stamp),
             'published: {0}'.format(date),
